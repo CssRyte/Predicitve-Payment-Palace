@@ -1,0 +1,36 @@
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-mark">P</div>
+    <span>Predictive<br />Payment Palace</span>
+  </div>
+  <nav class="nav">
+    <a
+      class="{% if active_nav in ('prep', 'reorder') %}active{% endif %}"
+      href="{{ url_for('prep') }}"
+      >Prep &amp; Reorder</a
+    >
+    <a
+      class="{% if active_nav == 'history' %}active{% endif %}"
+      href="{{ url_for('history') }}"
+      >History &amp; Accuracy</a
+    >
+    <a
+      class="{% if active_nav == 'data_source' %}active{% endif %}"
+      href="{{ url_for('data_source') }}"
+      >Data Setup</a
+    >
+    <a
+      class="{% if active_nav == 'menu_suppliers' %}active{% endif %}"
+      href="{{ url_for('menu_suppliers') }}"
+      >Menu &amp; Suppliers</a
+    >
+    <a
+      class="{% if active_nav == 'settings' %}active{% endif %}"
+      href="{{ url_for('settings') }}"
+      >Account Settings</a
+    >
+  </nav>
+  <div class="sidebar-footer nav">
+    <a href="{{ url_for('logout') }}">Log Out</a>
+  </div>
+</aside>

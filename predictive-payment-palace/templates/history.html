@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}History & Accuracy | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <h1>History &amp; Accuracy</h1>
+    <p>Review sales patterns and compare previous forecasts with actual results.</p>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('history_export') }}">Export Report</a>
+</div>
+<div class="toolbar card card-pad">
+  <div class="field">
+    <label>Date range</label>
+    <select disabled><option>All seeded history</option></select>
+  </div>
+  <div class="field">
+    <label>Item</label>
+    <select disabled><option>All items</option></select>
+  </div>
+</div>
+<div class="chart-grid">
+  <article class="card chart">
+    <h3>Sales Mix by Item</h3>
+    <div class="chart-flex">
+      <div class="donut"></div>
+      <div class="legend">
+        {% for row in sales_mix %}
+        <span>{{ row.name }} {{ row.percent }}%</span>
+        {% else %}
+        <span class="muted">No sales data yet</span>
+        {% endfor %}
+      </div>
+    </div>
+  </article>
+  <article class="card chart">
+    <h3>Average Demand by Day</h3>
+    <div class="bar-chart">
+      {% for day in demand_by_day %}
+      <div class="bar" style="height: {{ day.height }}%" title="{{ day.value }}"></div>
+      {% endfor %}
+    </div>
+    <div class="inline small muted" style="justify-content: space-between">
+      {% for day in demand_by_day %}
+      <span>{{ day.label }}</span>
+      {% endfor %}
+    </div>
+  </article>
+  <article class="card chart">
+    <h3>Sales Volume Over Time</h3>
+    <div class="line-chart">
+      <svg preserveAspectRatio="none" viewBox="0 0 400 150">
+        {% if volume_polyline %}
+        <polyline fill="none" points="{{ volume_polyline }}" stroke="#6750e8" stroke-width="4"></polyline>
+        {% endif %}
+      </svg>
+    </div>
+  </article>
+</div>
+<div class="history-grid">
+  <section class="card">
+    <div class="section-heading card-pad"><h2>Forecast vs. Actual</h2></div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th><th>Item</th><th>Forecast</th><th>Actual</th><th>Difference</th><th>Difference ($)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in comparisons %}
+          <tr>
+            <td>{{ row.date }}</td>
+            <td>{{ row.item }}</td>
+            <td>{{ row.forecast }}</td>
+            <td>{{ row.actual }}</td>
+            <td>{{ row.difference }}</td>
+            <td>{{ row.difference_money }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="6" class="muted">Not enough history to compare yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <aside class="card card-pad">
+    <h2 style="font-size: 1rem; margin-top: 0">Accuracy Summary</h2>
+    <div class="summary-list">
+      <div class="summary-row"><span>Overall accuracy</span><strong>{{ accuracy.overall }}</strong></div>
+      <div class="summary-row"><span>Total over-preparation</span><strong>{{ accuracy.over_prep }}</strong></div>
+      <div class="summary-row"><span>Over-prep cost</span><strong>{{ accuracy.over_cost }}</strong></div>
+      <div class="summary-row"><span>Total under-preparation</span><strong>{{ accuracy.under_prep }}</strong></div>
+      <div class="summary-row"><span>Average error</span><strong>{{ accuracy.avg_error }}</strong></div>
+    </div>
+  </aside>
+</div>
+{% endblock %}

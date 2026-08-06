@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}Menu & Suppliers | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <h1>Menu &amp; Supplier Setup</h1>
+    <p>Define what you sell and how those sales convert into ingredients and supplier units.</p>
+  </div>
+</div>
+<div class="tabs">
+  <a class="tab {% if tab == 'menu' %}active{% endif %}" href="{{ url_for('menu_suppliers', tab='menu') }}">Menu Items</a>
+  <a class="tab {% if tab == 'ingredients' %}active{% endif %}" href="{{ url_for('menu_suppliers', tab='ingredients') }}">Ingredients &amp; Conversion</a>
+  <a class="tab {% if tab == 'suppliers' %}active{% endif %}" href="{{ url_for('menu_suppliers', tab='suppliers') }}">Suppliers</a>
+</div>
+
+{% if tab == 'menu' %}
+<div class="card">
+  <div class="section-heading card-pad">
+    <div>
+      <h2>Menu items</h2>
+      <span class="small muted">Edit current prep and price, or add a new item.</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Unit</th>
+          <th>Portion</th>
+          <th>Current Prep</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in menu_items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.selling_unit | capitalize }}</td>
+          <td colspan="4">
+            <form class="inline-form" method="post" action="{{ url_for('update_menu_item') }}">
+              <input type="hidden" name="item_id" value="{{ item.id }}" />
+              <input class="input" name="portion_note" value="{{ item.portion_note or '' }}" placeholder="Portion" />
+              <input class="input" name="current_prep" type="number" min="0" value="{{ item.current_prep }}" />
+              <input class="input" name="price" type="number" min="0" step="0.01" value="{{ item.price or 0 }}" />
+              <button class="btn btn-secondary" type="submit">Save</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="muted">No menu items found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<form class="card card-pad form-grid" method="post" action="{{ url_for('add_menu_item') }}" style="margin-top:16px">
+  <h2 style="margin-top:0">Add menu item</h2>
+  <div class="split">
+    <div class="field">
+      <label>Name</label>
+      <input class="input" name="name" required placeholder="New side dish" />
+    </div>
+    <div class="field">
+      <label>Selling unit</label>
+      <select name="selling_unit">
+        <option value="serving">serving</option>
+        <option value="plate">plate</option>
+        <option value="piece">piece</option>
+      </select>
+    </div>
+  </div>
+  <div class="split">
+    <div class="field">
+      <label>Portion note</label>
+      <input class="input" name="portion_note" placeholder="6 oz" />
+    </div>
+    <div class="field">
+      <label>Price</label>
+      <input class="input" name="price" type="number" min="0" step="0.01" value="0" />
+    </div>
+  </div>
+  <div class="field">
+    <label>Current prep</label>
+    <input class="input" name="current_prep" type="number" min="0" value="0" />
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" type="submit">Add Item</button>
+  </div>
+</form>
+
+{% elif tab == 'ingredients' %}
+<div class="card">
+  <div class="section-heading card-pad">
+    <div>
+      <h2>Ingredients &amp; conversion</h2>
+      <span class="small muted">How menu servings consume inventory.</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th>Menu item</th>
+          <th>Amount / serving</th>
+          <th>On hand</th>
+          <th>Unit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in ingredients %}
+        <tr>
+          <td>{{ row.name }}</td>
+          <td>{{ row.menu_item_name or '—' }}</td>
+          <td>{{ row.amount_per_serving }}</td>
+          <td>{{ row.current_quantity }}</td>
+          <td>{{ row.inventory_unit }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="muted">No ingredients found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<form class="card card-pad form-grid" method="post" action="{{ url_for('add_ingredient') }}" style="margin-top:16px">
+  <h2 style="margin-top:0">Add ingredient + conversion</h2>
+  <div class="split">
+    <div class="field">
+      <label>Ingredient name</label>
+      <input class="input" name="name" required />
+    </div>
+    <div class="field">
+      <label>Inventory unit</label>
+      <input class="input" name="inventory_unit" value="lb" required />
+    </div>
+  </div>
+  <div class="split">
+    <div class="field">
+      <label>On hand</label>
+      <input class="input" name="current_quantity" type="number" min="0" step="0.01" value="0" />
+    </div>
+    <div class="field">
+      <label>Amount per serving</label>
+      <input class="input" name="amount_per_serving" type="number" min="0.0001" step="0.0001" required />
+    </div>
+  </div>
+  <div class="field">
+    <label>Linked menu item</label>
+    <select name="menu_item_id" required>
+      {% for item in menu_items %}
+      <option value="{{ item.id }}">{{ item.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" type="submit">Add Ingredient</button>
+  </div>
+</form>
+
+{% else %}
+<div class="card">
+  <div class="section-heading card-pad">
+    <div>
+      <h2>Suppliers</h2>
+      <span class="small muted">Case sizes used by the conversion layer.</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Supplier</th>
+          <th>Ingredient</th>
+          <th>Package</th>
+          <th>Qty / package</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in suppliers %}
+        <tr>
+          <td>{{ row.supplier_name }}</td>
+          <td>{{ row.ingredient_name }}</td>
+          <td>{{ row.package_unit }}</td>
+          <td>{{ row.quantity_per_package|int }} {{ row.inventory_unit }}</td>
+          <td>${{ '%.2f'|format(row.package_cost|float) }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="muted">No supplier packages found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<form class="card card-pad form-grid" method="post" action="{{ url_for('add_supplier_package') }}" style="margin-top:16px">
+  <h2 style="margin-top:0">Add supplier package</h2>
+  <div class="split">
+    <div class="field">
+      <label>Supplier name</label>
+      <input class="input" name="supplier_name" required />
+    </div>
+    <div class="field">
+      <label>Ingredient</label>
+      <select name="ingredient_id" required>
+        {% for row in ingredient_options %}
+        <option value="{{ row.id }}">{{ row.name }} ({{ row.inventory_unit }})</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="split">
+    <div class="field">
+      <label>Package unit</label>
+      <input class="input" name="package_unit" value="case" />
+    </div>
+    <div class="field">
+      <label>Quantity per package</label>
+      <input class="input" name="quantity_per_package" type="number" min="0.01" step="0.01" required />
+    </div>
+  </div>
+  <div class="field">
+    <label>Package cost ($)</label>
+    <input class="input" name="package_cost" type="number" min="0" step="0.01" value="0" />
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" type="submit">Add Package</button>
+  </div>
+</form>
+{% endif %}
+
+<div class="actions" style="margin-top: 16px">
+  <a class="btn btn-secondary" href="{{ url_for('onboarding') }}">Back</a>
+  <a class="btn btn-primary" href="{{ url_for('prep') }}">Go to Prep</a>
+</div>
+{% endblock %}

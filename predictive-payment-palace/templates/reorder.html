@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Reorder Guidance | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <h1>Prep &amp; Reorder Guidance</h1>
+    <p>Convert projected menu demand into supplier purchase units.</p>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('reorder') }}">Refresh Forecast</a>
+</div>
+<div class="tabs">
+  <a class="tab" href="{{ url_for('prep') }}">Prep</a>
+  <a class="tab active" href="{{ url_for('reorder') }}">Reorder</a>
+</div>
+<div class="toolbar card card-pad">
+  <div class="field">
+    <label>Next order for</label>
+    <select disabled><option>7 days</option></select>
+  </div>
+  <div class="field">
+    <label>Supplier</label>
+    <select disabled><option>All suppliers</option></select>
+  </div>
+</div>
+<div class="dashboard-grid">
+  <section class="card">
+    <div class="section-heading card-pad">
+      <div>
+        <h2>Reorder Recommendations</h2>
+        <span class="small muted">What to purchase</span>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Ingredient</th>
+            <th>Needed Amount</th>
+            <th>Order Unit</th>
+            <th>Reorder Quantity</th>
+            <th>Estimated Cost</th>
+            <th>Supplier</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in reorder_rows %}
+          <tr>
+            <td>{{ row.ingredient }}</td>
+            <td>{{ row.needed_amount }}</td>
+            <td>{{ row.order_unit }}</td>
+            <td><strong>{{ row.reorder_quantity }}</strong></td>
+            <td>{{ row.estimated_cost }}</td>
+            <td>{{ row.supplier }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6" class="muted">No reorder rows — check MySQL seed data.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% if reorder_rows %}
+        <tfoot>
+          <tr>
+            <td colspan="4"><strong>Estimated Total</strong></td>
+            <td colspan="2"><strong>{{ estimated_total }}</strong></td>
+          </tr>
+        </tfoot>
+        {% endif %}
+      </table>
+    </div>
+  </section>
+  <aside class="card ai-panel">
+    <div class="ai-status">
+      <strong>AI Summary (Ollama)</strong>
+      <span class="small">
+        <span class="dot"></span>
+        {% if ollama_connected %}Connected{% else %}Offline — using fallback{% endif %}
+      </span>
+    </div>
+    <div class="ai-box">
+      {% for paragraph in ai_paragraphs %}
+      <p>{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+  </aside>
+</div>
+{% endblock %}

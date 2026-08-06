@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Onboarding | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <span class="eyebrow">Initial setup</span>
+    <h1>Tell us about your business</h1>
+    <p>This information helps customize forecasts to your schedule and menu.</p>
+  </div>
+</div>
+<div class="stepper">
+  <div class="step active"><div class="circle">1</div>Business Info</div>
+  <div class="step"><div class="circle">2</div>Menu Items</div>
+  <div class="step"><div class="circle">3</div>Suppliers</div>
+  <div class="step"><div class="circle">4</div>Review</div>
+</div>
+<div class="onboarding-grid">
+  <form action="{{ url_for('menu_suppliers') }}" class="card card-pad form-grid" method="get">
+    <div class="field">
+      <label>Business name</label>
+      <input class="input" value="{% if business_name %}{{ business_name }}{% else %}Mama's Soul Food{% endif %}" />
+    </div>
+    <div class="field">
+      <label>Business type</label>
+      <select><option>Restaurant</option><option>Food market</option></select>
+    </div>
+    <div class="field">
+      <label>Address</label>
+      <input class="input" value="123 Lakewood Ave, Atlanta, GA" />
+    </div>
+    <div class="field">
+      <label>Operating days</label>
+      <div class="inline">
+        <label><input checked type="checkbox" /> Mon</label>
+        <label><input checked type="checkbox" /> Tue</label>
+        <label><input checked type="checkbox" /> Wed</label>
+        <label><input checked type="checkbox" /> Thu</label>
+        <label><input checked type="checkbox" /> Fri</label>
+        <label><input checked type="checkbox" /> Sat</label>
+        <label><input type="checkbox" /> Sun</label>
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label>Lunch hours</label>
+        <div class="inline">
+          <input class="input" type="time" value="11:00" />
+          <span>to</span>
+          <input class="input" type="time" value="15:00" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Dinner hours</label>
+        <div class="inline">
+          <input class="input" type="time" value="16:00" />
+          <span>to</span>
+          <input class="input" type="time" value="21:00" />
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="{{ url_for('login') }}">Cancel</a>
+      <button class="btn btn-primary" type="submit">Next</button>
+    </div>
+  </form>
+  <aside class="card help-panel">
+    <h3>Why we ask this</h3>
+    <p class="muted">
+      Your hours and operating days let the system compare similar service periods instead of treating every day the same.
+    </p>
+  </aside>
+</div>
+{% endblock %}

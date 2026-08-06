@@ -1,0 +1,12 @@
+<header class="topbar">
+  <div class="left">
+    <strong>{{ business_name | default("Mama's Soul Food") }}</strong>
+    <span class="badge badge-purple">Demo Data (Synthetic)</span>
+  </div>
+  <div class="right">
+    <span class="small muted"
+      >Last updated: {{ last_updated | default("—") }}</span
+    >
+    <div class="avatar">{{ business_initials | default("MS") }}</div>
+  </div>
+</header>

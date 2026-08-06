@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Prep Guidance | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <h1>Prep &amp; Reorder Guidance</h1>
+    <p>
+      Forward-looking recommendations based on synthetic transaction history.
+    </p>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('prep', date=target_date, meal_period=meal_period) }}"
+    >Refresh Forecast</a
+  >
+</div>
+<div class="tabs">
+  <a class="tab active" href="{{ url_for('prep') }}">Prep</a>
+  <a class="tab" href="{{ url_for('reorder') }}">Reorder</a>
+</div>
+<form class="toolbar card card-pad" method="get" action="{{ url_for('prep') }}">
+  <div class="field">
+    <label for="date">Date</label>
+    <input class="input" id="date" name="date" type="date" value="{{ target_date }}" />
+  </div>
+  <div class="field">
+    <label for="meal_period">Meal period</label>
+    <select id="meal_period" name="meal_period">
+      <option value="Dinner" {% if meal_period == 'Dinner' %}selected{% endif %}>Dinner</option>
+      <option value="Lunch" {% if meal_period == 'Lunch' %}selected{% endif %}>Lunch</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Forecast window</label>
+    <select disabled>
+      <option>1 day</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>View</label>
+    <select disabled>
+      <option>All items</option>
+    </select>
+  </div>
+  <div class="field" style="align-self: end">
+    <button class="btn btn-primary" type="submit">Apply</button>
+  </div>
+</form>
+<div class="metrics">
+  <article class="card metric">
+    <div class="label">Predicted Orders</div>
+    <div class="value">{{ metrics.predicted_orders }}</div>
+    <div class="trend">{{ metrics.predicted_orders_trend }}</div>
+  </article>
+  <article class="card metric">
+    <div class="label">Recommended Prep</div>
+    <div class="value">{{ metrics.recommended_prep_total }}</div>
+    <div class="trend">Across {{ recommendations | length }} items</div>
+  </article>
+  <article class="card metric">
+    <div class="label">Items Needing Reorder</div>
+    <div class="value">{{ metrics.items_needing_reorder }}</div>
+    <div class="trend">{{ metrics.reorder_priority_note }}</div>
+  </article>
+  <article class="card metric">
+    <div class="label">Potential Waste Avoided</div>
+    <div class="value">${{ metrics.waste_avoided }}</div>
+    <div class="trend">Estimated today</div>
+  </article>
+</div>
+<div class="dashboard-grid">
+  <section class="card">
+    <div class="section-heading card-pad">
+      <div>
+        <h2>Prep Recommendations</h2>
+        <span class="small muted">How much to cook</span>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Forecast Demand</th>
+            <th>Current Prep</th>
+            <th>Recommended Prep</th>
+            <th>Confidence</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in recommendations %}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.forecasted_demand }} {{ item.unit_label }}</td>
+            <td>{{ item.current_prep }}</td>
+            <td><strong>{{ item.recommended_prep }} {{ item.unit_label }}</strong></td>
+            <td>
+              <span class="confidence {{ item.confidence }}">{{ item.confidence | capitalize }}</span>
+            </td>
+            <td>
+              <button class="btn btn-secondary" data-open-drawer type="button">Details</button>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6" class="muted">No menu items found. Load seed data in MySQL.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <aside class="card ai-panel">
+    <div class="ai-status">
+      <strong>AI Summary (Ollama)</strong>
+      <span class="small">
+        <span class="dot"></span>
+        {% if ollama_connected %}Connected{% else %}Offline — using fallback{% endif %}
+      </span>
+    </div>
+    <div class="ai-box">
+      {% for paragraph in ai_paragraphs %}
+      <p>{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+    <a
+      class="btn btn-secondary btn-block"
+      style="margin-top: 12px"
+      href="{{ url_for('prep', date=target_date, meal_period=meal_period, refresh_ai=1) }}"
+      >Regenerate Explanation</a
+    >
+  </aside>
+</div>
+{% if recommendations %}
+<div class="modal-backdrop" id="itemDrawer">
+  <aside class="drawer">
+    <div class="drawer-head">
+      <div>
+        <span class="eyebrow">Item detail</span>
+        <h2>{{ recommendations[0].name }}</h2>
+      </div>
+      <button class="icon-btn" data-close-drawer type="button">✕</button>
+    </div>
+    <div class="summary-list">
+      <div class="summary-row">
+        <span>Forecasted demand</span>
+        <strong>{{ recommendations[0].forecasted_demand }} {{ recommendations[0].unit_label }}</strong>
+      </div>
+      <div class="summary-row">
+        <span>Recommended prep</span>
+        <strong>{{ recommendations[0].recommended_prep }} {{ recommendations[0].unit_label }}</strong>
+      </div>
+      <div class="summary-row">
+        <span>Current prep</span>
+        <strong>{{ recommendations[0].current_prep }} {{ recommendations[0].unit_label }}</strong>
+      </div>
+      <div class="summary-row">
+        <span>Prep buffer</span>
+        <strong>+{{ recommendations[0].recommended_prep - recommendations[0].forecasted_demand }} {{ recommendations[0].unit_label }}</strong>
+      </div>
+    </div>
+    <div class="ai-box" style="margin-top: 18px">
+      <strong>Explanation</strong>
+      <p class="muted">{{ ai_paragraphs[0] if ai_paragraphs else 'No summary available.' }}</p>
+    </div>
+  </aside>
+</div>
+{% endif %}
+{% endblock %}

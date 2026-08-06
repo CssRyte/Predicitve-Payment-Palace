@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login | Predictive Payment Palace</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <main class="login-shell">
+      <section class="login-card">
+        <div class="brand">
+          <div class="brand-mark">P</div>
+          <span>Predictive Payment Palace</span>
+        </div>
+        <p class="muted">Predict smarter. Waste less. Grow your business.</p>
+        {% if error %}
+        <p class="small" style="color: var(--danger)">{{ error }}</p>
+        {% endif %}
+        <form action="{{ url_for('login') }}" class="form-grid" method="post">
+          <div class="field">
+            <label for="email">Email or username</label>
+            <input
+              class="input"
+              id="email"
+              name="email"
+              placeholder="owner@example.com"
+              required
+              type="email"
+              value="{{ demo_email }}"
+            />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              class="input"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              required
+              type="password"
+              value="{{ demo_password }}"
+            />
+          </div>
+          <div class="inline small">
+            <input id="remember" type="checkbox" />
+            <label for="remember">Remember me</label>
+            <a href="#" style="margin-left: auto; color: var(--primary)"
+              >Forgot password?</a
+            >
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">
+            Sign In
+          </button>
+        </form>
+        <p class="small muted" style="text-align: center">
+          Demo login: {{ demo_email }} / {{ demo_password }}
+        </p>
+      </section>
+      <section class="info-card">
+        <div class="hero-illustration">🍽️</div>
+        <h2>Built for Lakewood businesses</h2>
+        <div class="benefits">
+          <div>Reduce food waste</div>
+          <div>Prepare the right amount</div>
+          <div>Understand sales patterns</div>
+          <div>Make clearer reorder decisions</div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

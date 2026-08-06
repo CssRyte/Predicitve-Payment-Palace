@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Settings | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <h1>Account &amp; Settings</h1>
+    <p>Manage business details, users, measurements, and security.</p>
+  </div>
+</div>
+<div class="settings-layout">
+  <aside class="card settings-menu">
+    <a class="active" href="{{ url_for('settings') }}">Business Info</a>
+    <a href="{{ url_for('data_source') }}">Data Source</a>
+    <a href="{{ url_for('menu_suppliers') }}">Menu &amp; Suppliers</a>
+  </aside>
+  <form class="card card-pad form-grid" method="post" action="{{ url_for('settings') }}">
+    <h2 style="margin-top: 0">Business Information</h2>
+    <div class="field">
+      <label for="name">Business name</label>
+      <input class="input" id="name" name="name" required value="{{ business.name if business else '' }}" />
+    </div>
+    <div class="field">
+      <label for="business_type">Business type</label>
+      <input class="input" id="business_type" name="business_type" value="{{ business.business_type if business and business.business_type else 'Restaurant' }}" />
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input class="input" id="email" name="email" type="email" value="{{ business.email if business and business.email else '' }}" />
+    </div>
+    <div class="field">
+      <label for="phone">Phone</label>
+      <input class="input" id="phone" name="phone" value="{{ business.phone if business and business.phone else '' }}" />
+    </div>
+    <div class="field">
+      <label for="address">Address</label>
+      <input class="input" id="address" name="address" value="{{ business.address if business else '' }}" />
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" type="submit">Save Changes</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

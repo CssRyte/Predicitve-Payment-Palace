@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <title>
+   History & Accuracy | Predictive Payment Palace
+  </title>
+  <link href="css/styles.css" rel="stylesheet">
+ </head>
+ <body>
+  <div class="app-shell">
+   <aside class="sidebar">
+    <div class="brand">
+     <div class="brand-mark">
+      P
+     </div>
+     <span>
+      Predictive
+      <br>
+      Payment Palace
+     </span>
+    </div>
+    <nav class="nav">
+     <a class="" href="prep.html">
+      Prep & Reorder
+     </a>
+     <a class="active" href="history.html">
+      History & Accuracy
+     </a>
+     <a class="" href="data-setup.html">
+      Data Setup
+     </a>
+     <a class="" href="menu-suppliers.html">
+      Menu & Suppliers
+     </a>
+     <a class="" href="settings.html">
+      Account Settings
+     </a>
+    </nav>
+    <div class="sidebar-footer nav">
+     <a href="login.html">
+      Log Out
+     </a>
+    </div>
+   </aside>
+   <main class="main">
+    <header class="topbar">
+     <div class="left">
+      <strong>
+       Mama's Soul Food
+      </strong>
+      <span class="badge badge-purple">
+       Demo Data (Synthetic)
+      </span>
+     </div>
+     <div class="right">
+      <span class="small muted">
+       Last updated: Aug 4, 2026
+      </span>
+      <div class="avatar">
+       MS
+      </div>
+     </div>
+    </header>
+    <section class="content">
+     <div class="page-title">
+      <div>
+       <h1>
+        History & Accuracy
+       </h1>
+       <p>
+        Review sales patterns and compare previous forecasts with actual results.
+       </p>
+      </div>
+      <button class="btn btn-secondary">
+       Export Report
+      </button>
+     </div>
+     <div class="toolbar card card-pad">
+      <div class="field">
+       <label>
+        Date range
+       </label>
+       <select>
+        <option>
+         Last 30 days
+        </option>
+        <option>
+         Last 7 days
+        </option>
+        <option>
+         Last 90 days
+        </option>
+       </select>
+      </div>
+      <div class="field">
+       <label>
+        Item
+       </label>
+       <select>
+        <option>
+         All items
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="chart-grid">
+      <article class="card chart">
+       <h3>
+        Sales Mix by Item
+       </h3>
+       <div class="chart-flex">
+        <div class="donut">
+        </div>
+        <div class="legend">
+         <span>
+          Fried Chicken 40%
+         </span>
+         <span>
+          Mac & Cheese 25%
+         </span>
+         <span>
+          Collard Greens 15%
+         </span>
+         <span>
+          Other 20%
+         </span>
+        </div>
+       </div>
+      </article>
+      <article class="card chart">
+       <h3>
+        Average Demand by Day
+       </h3>
+       <div class="bar-chart">
+        <div class="bar" style="height:42%">
+        </div>
+        <div class="bar" style="height:58%">
+        </div>
+        <div class="bar" style="height:48%">
+        </div>
+        <div class="bar" style="height:63%">
+        </div>
+        <div class="bar" style="height:78%">
+        </div>
+        <div class="bar" style="height:92%">
+        </div>
+        <div class="bar" style="height:70%">
+        </div>
+       </div>
+       <div class="inline small muted" style="justify-content:space-between">
+        <span>
+         Mon
+        </span>
+        <span>
+         Tue
+        </span>
+        <span>
+         Wed
+        </span>
+        <span>
+         Thu
+        </span>
+        <span>
+         Fri
+        </span>
+        <span>
+         Sat
+        </span>
+        <span>
+         Sun
+        </span>
+       </div>
+      </article>
+      <article class="card chart">
+       <h3>
+        Sales Volume Over Time
+       </h3>
+       <div class="line-chart">
+        <svg preserveaspectratio="none" viewbox="0 0 400 150">
+         <polyline fill="none" points="0,90 45,110 90,75 135,98 180,42 225,80 270,67 315,105 360,70 400,30" stroke="#6750e8" stroke-width="4">
+         </polyline>
+        </svg>
+       </div>
+      </article>
+     </div>
+     <div class="history-grid">
+      <section class="card">
+       <div class="section-heading card-pad">
+        <h2>
+         Forecast vs. Actual
+        </h2>
+       </div>
+       <div class="table-wrap">
+        <table class="data-table">
+         <thead>
+          <tr>
+           <th>
+            Date
+           </th>
+           <th>
+            Item
+           </th>
+           <th>
+            Forecast
+           </th>
+           <th>
+            Actual
+           </th>
+           <th>
+            Difference
+           </th>
+           <th>
+            Difference ($)
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            Aug 1
+           </td>
+           <td>
+            Fried Chicken Plate
+           </td>
+           <td>
+            80
+           </td>
+           <td>
+            76
+           </td>
+           <td>
+            -4
+           </td>
+           <td>
+            $18.40
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Aug 2
+           </td>
+           <td>
+            Mac & Cheese
+           </td>
+           <td>
+            65
+           </td>
+           <td>
+            70
+           </td>
+           <td>
+            +5
+           </td>
+           <td>
+            $14.25
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Aug 3
+           </td>
+           <td>
+            Collard Greens
+           </td>
+           <td>
+            50
+           </td>
+           <td>
+            46
+           </td>
+           <td>
+            -4
+           </td>
+           <td>
+            $9.60
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Aug 4
+           </td>
+           <td>
+            Fried Chicken Plate
+           </td>
+           <td>
+            90
+           </td>
+           <td>
+            88
+           </td>
+           <td>
+            -2
+           </td>
+           <td>
+            $9.20
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </section>
+      <aside class="card card-pad">
+       <h2 style="font-size:1rem;margin-top:0">
+        Accuracy Summary
+       </h2>
+       <div class="summary-list">
+        <div class="summary-row">
+         <span>
+          Overall accuracy
+         </span>
+         <strong>
+          87%
+         </strong>
+        </div>
+        <div class="summary-row">
+         <span>
+          Total over-preparation
+         </span>
+         <strong>
+          132 units
+         </strong>
+        </div>
+        <div class="summary-row">
+         <span>
+          Over-prep cost
+         </span>
+         <strong>
+          $286.40
+         </strong>
+        </div>
+        <div class="summary-row">
+         <span>
+          Total under-preparation
+         </span>
+         <strong>
+          96 units
+         </strong>
+        </div>
+        <div class="summary-row">
+         <span>
+          Average error
+         </span>
+         <strong>
+          6.2 units
+         </strong>
+        </div>
+       </div>
+      </aside>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script src="js/app.js">
+  </script>
+ </body>
+</html>
+

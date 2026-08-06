@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <title>
+   Data Setup | Predictive Payment Palace
+  </title>
+  <link href="css/styles.css" rel="stylesheet">
+ </head>
+ <body>
+  <div class="app-shell">
+   <aside class="sidebar">
+    <div class="brand">
+     <div class="brand-mark">
+      P
+     </div>
+     <span>
+      Predictive
+      <br>
+      Payment Palace
+     </span>
+    </div>
+    <nav class="nav">
+     <a class="" href="prep.html">
+      Prep & Reorder
+     </a>
+     <a class="" href="history.html">
+      History & Accuracy
+     </a>
+     <a class="active" href="data-setup.html">
+      Data Setup
+     </a>
+     <a class="" href="menu-suppliers.html">
+      Menu & Suppliers
+     </a>
+     <a class="" href="settings.html">
+      Account Settings
+     </a>
+    </nav>
+    <div class="sidebar-footer nav">
+     <a href="login.html">
+      Log Out
+     </a>
+    </div>
+   </aside>
+   <main class="main">
+    <header class="topbar">
+     <div class="left">
+      <strong>
+       Mama's Soul Food
+      </strong>
+      <span class="badge badge-purple">
+       Demo Data (Synthetic)
+      </span>
+     </div>
+     <div class="right">
+      <span class="small muted">
+       Last updated: Aug 4, 2026
+      </span>
+      <div class="avatar">
+       MS
+      </div>
+     </div>
+    </header>
+    <section class="content">
+     <div class="page-title">
+      <div>
+       <h1>
+        Connect Your Sales Data
+       </h1>
+       <p>
+        Choose how transaction history enters Predictive Payment Palace.
+       </p>
+      </div>
+     </div>
+     <div class="choice-grid">
+      <article class="card choice active">
+       <div class="icon">
+        🧪
+       </div>
+       <h3>
+        Use Demo Data
+       </h3>
+       <p class="muted">
+        Start with synthetic transaction patterns while the MVP is being tested.
+       </p>
+       <span class="badge badge-purple">
+        Current
+       </span>
+      </article>
+      <article class="card choice">
+       <div class="icon">
+        📄
+       </div>
+       <h3>
+        Upload Sales Data
+       </h3>
+       <p class="muted">
+        Upload a CSV export from the business's existing payment system.
+       </p>
+       <button class="btn btn-secondary">
+        Choose CSV File
+       </button>
+      </article>
+      <article class="card choice">
+       <div class="icon">
+        🔗
+       </div>
+       <h3>
+        Connect Square
+       </h3>
+       <p class="muted">
+        Automatically synchronize transactions through the Square API.
+       </p>
+       <button class="btn btn-secondary" disabled>
+        Tier 3 &mdash; Coming Later
+       </button>
+      </article>
+     </div>
+     <div class="empty-note" style="margin-top:16px">
+      Forecasts update after new data is validated and saved to MySQL.
+     </div>
+    </section>
+   </main>
+  </div>
+  <script src="js/app.js">
+  </script>
+ </body>
+</html>
+

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <title>
+   Reorder Guidance | Predictive Payment Palace
+  </title>
+  <link href="css/styles.css" rel="stylesheet">
+ </head>
+ <body>
+  <div class="app-shell">
+   <aside class="sidebar">
+    <div class="brand">
+     <div class="brand-mark">
+      P
+     </div>
+     <span>
+      Predictive
+      <br>
+      Payment Palace
+     </span>
+    </div>
+    <nav class="nav">
+     <a class="active" href="prep.html">
+      Prep & Reorder
+     </a>
+     <a class="" href="history.html">
+      History & Accuracy
+     </a>
+     <a class="" href="data-setup.html">
+      Data Setup
+     </a>
+     <a class="" href="menu-suppliers.html">
+      Menu & Suppliers
+     </a>
+     <a class="" href="settings.html">
+      Account Settings
+     </a>
+    </nav>
+    <div class="sidebar-footer nav">
+     <a href="login.html">
+      Log Out
+     </a>
+    </div>
+   </aside>
+   <main class="main">
+    <header class="topbar">
+     <div class="left">
+      <strong>
+       Mama's Soul Food
+      </strong>
+      <span class="badge badge-purple">
+       Demo Data (Synthetic)
+      </span>
+     </div>
+     <div class="right">
+      <span class="small muted">
+       Last updated: Aug 4, 2026
+      </span>
+      <div class="avatar">
+       MS
+      </div>
+     </div>
+    </header>
+    <section class="content">
+     <div class="page-title">
+      <div>
+       <h1>
+        Prep & Reorder Guidance
+       </h1>
+       <p>
+        Convert projected menu demand into supplier purchase units.
+       </p>
+      </div>
+      <button class="btn btn-secondary">
+       Refresh Forecast
+      </button>
+     </div>
+     <div class="tabs">
+      <a class="tab" href="prep.html">
+       Prep
+      </a>
+      <a class="tab active" href="reorder.html">
+       Reorder
+      </a>
+     </div>
+     <div class="toolbar card card-pad">
+      <div class="field">
+       <label>
+        Next order for
+       </label>
+       <select>
+        <option>
+         7 days
+        </option>
+        <option>
+         14 days
+        </option>
+       </select>
+      </div>
+      <div class="field">
+       <label>
+        Supplier
+       </label>
+       <select>
+        <option>
+         All suppliers
+        </option>
+        <option>
+         Georgia Foods
+        </option>
+        <option>
+         PFG
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="dashboard-grid">
+      <section class="card">
+       <div class="section-heading card-pad">
+        <div>
+         <h2>
+          Reorder Recommendations
+         </h2>
+         <span class="small muted">
+          What to purchase
+         </span>
+        </div>
+       </div>
+       <div class="table-wrap">
+        <table class="data-table">
+         <thead>
+          <tr>
+           <th>
+            Ingredient
+           </th>
+           <th>
+            Needed Amount
+           </th>
+           <th>
+            Order Unit
+           </th>
+           <th>
+            Reorder Quantity
+           </th>
+           <th>
+            Estimated Cost
+           </th>
+           <th>
+            Supplier
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            Chicken (Raw)
+           </td>
+           <td>
+            180 pcs
+           </td>
+           <td>
+            Case (40 pcs)
+           </td>
+           <td>
+            <strong>
+             5 cases
+            </strong>
+           </td>
+           <td>
+            $125.00
+           </td>
+           <td>
+            Georgia Foods
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Macaroni Noodles
+           </td>
+           <td>
+            18 lb
+           </td>
+           <td>
+            Case (20 lb)
+           </td>
+           <td>
+            <strong>
+             1 case
+            </strong>
+           </td>
+           <td>
+            $22.00
+           </td>
+           <td>
+            PFG
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Collard Greens
+           </td>
+           <td>
+            30 lb
+           </td>
+           <td>
+            Case (30 lb)
+           </td>
+           <td>
+            <strong>
+             1 case
+            </strong>
+           </td>
+           <td>
+            $28.00
+           </td>
+           <td>
+            Local Greens Co.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Yams
+           </td>
+           <td>
+            20 lb
+           </td>
+           <td>
+            Case (20 lb)
+           </td>
+           <td>
+            <strong>
+             1 case
+            </strong>
+           </td>
+           <td>
+            $18.00
+           </td>
+           <td>
+            PFG
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Cornbread Mix
+           </td>
+           <td>
+            10 boxes
+           </td>
+           <td>
+            Case (24 boxes)
+           </td>
+           <td>
+            <strong>
+             1 case
+            </strong>
+           </td>
+           <td>
+            $16.00
+           </td>
+           <td>
+            Sysco
+           </td>
+          </tr>
+         </tbody>
+         <tfoot>
+          <tr>
+           <td colspan="4">
+            <strong>
+             Estimated Total
+            </strong>
+           </td>
+           <td colspan="2">
+            <strong>
+             $209.00
+            </strong>
+           </td>
+          </tr>
+         </tfoot>
+        </table>
+       </div>
+      </section>
+      <aside class="card ai-panel">
+       <div class="ai-status">
+        <strong>
+         AI Summary (Ollama)
+        </strong>
+        <span class="small">
+         <span class="dot">
+         </span>
+         Connected
+        </span>
+       </div>
+       <div class="ai-box">
+        <p>
+         The order covers projected demand for the next seven days using each supplier's case quantity.
+        </p>
+        <p>
+         Chicken is the highest-priority purchase because current inventory is below the recommended safety level.
+        </p>
+        <p>
+         Quantities were calculated before being sent to the AI summary.
+        </p>
+       </div>
+      </aside>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script src="js/app.js">
+  </script>
+ </body>
+</html>
+

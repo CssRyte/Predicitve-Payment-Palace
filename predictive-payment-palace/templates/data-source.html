@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Data Setup | Predictive Payment Palace{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <div>
+    <h1>Connect Your Sales Data</h1>
+    <p>Choose how transaction history enters Predictive Payment Palace.</p>
+  </div>
+</div>
+<div class="choice-grid">
+  <article class="card choice active">
+    <div class="icon">🧪</div>
+    <h3>Use Demo Data</h3>
+    <p class="muted">Start with synthetic transaction patterns while the MVP is being tested.</p>
+    <span class="badge badge-purple">Current seed: {{ transaction_count }} rows</span>
+  </article>
+  <article class="card choice">
+    <div class="icon">📄</div>
+    <h3>Upload Sales Data</h3>
+    <p class="muted">
+      CSV columns required:
+      <code>menu_item, quantity, meal_period, sold_at</code>
+    </p>
+    <form method="post" enctype="multipart/form-data" class="form-grid">
+      <input class="input" type="file" name="sales_csv" accept=".csv,text/csv" required />
+      <div class="actions" style="margin-top:0;justify-content:flex-start">
+        <button class="btn btn-secondary" type="submit">Upload CSV</button>
+        <a class="btn btn-secondary" href="{{ url_for('download_sample_csv') }}">Download sample</a>
+      </div>
+    </form>
+  </article>
+  <article class="card choice">
+    <div class="icon">🔗</div>
+    <h3>Connect Square</h3>
+    <p class="muted">Automatically synchronize transactions through the Square API.</p>
+    <button class="btn btn-secondary" disabled type="button">Tier 3 — Coming Later</button>
+  </article>
+</div>
+{% if upload_summary %}
+<div class="empty-note" style="margin-top:16px">
+  Last upload inserted <strong>{{ upload_summary.inserted }}</strong> row(s)
+  {% if upload_summary.skipped %}, skipped <strong>{{ upload_summary.skipped }}</strong>{% endif %}.
+  {% if upload_summary.warnings %}
+  <ul>
+    {% for w in upload_summary.warnings %}
+    <li>{{ w }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% else %}
+<div class="empty-note" style="margin-top: 16px">
+  Forecasts update after new data is validated and saved to MySQL.
+  Currently loaded: <strong>{{ transaction_count }}</strong> transactions.
+</div>
+{% endif %}
+{% endblock %}
